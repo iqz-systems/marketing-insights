@@ -1,0 +1,48 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_campaign_results
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DATASOURCENAME=ds_sql_marketing_insightsdb
+    CATALOGNAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_campaign_results.CATALOGNAME}' 
+    SCHEMANAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_campaign_results.SCHEMANAME}' 
+    RELATIONNAME='campaign_results' 
+    OUTPUTSCHEMA (
+        result_id = 'result_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        campaign_id = 'campaign_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        date = 'date' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='10', description='', sourcetypeid='91', sourcetypename='DATE')  ESCAPE SORTABLE,
+        impressions = 'impressions' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  SORTABLE,
+        clicks = 'clicks' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  SORTABLE,
+        conversions = 'conversions' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  SORTABLE,
+        date_created = 'date_created' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='9', sourcetyperadix='0', sourcetypesize='29', description='', sourcetypeid='93', sourcetypename='TIMESTAMP')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_campaign_results I18N us_est (
+        result_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Identifies individual records associated with campaign performance results.'),
+        campaign_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Links specific campaigns to their associated performance metrics.'),
+        date:localdate (sourcetypeid = '91', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '10', description = 'Denotes the specific day when campaign performance metrics were recorded.'),
+        impressions:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = 'Represents the total number of times a campaign was displayed to potential audiences.') TAGS (performance_metrics),
+        clicks:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = 'Captures the number of interactions where users clicked on the campaign content.'),
+        conversions:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = 'Measures successful actions taken by users, such as purchases or sign-ups, resulting from the campaign.') TAGS (performance_metrics),
+        date_created:timestamp (sourcetypeid = '93', sourcetyperadix = '0', sourcetypedecimals = '9', sourcetypesize = '29', description = 'Indicates the timestamp when the campaign performance record was created in the system.')
+    )
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DESCRIPTION = 'The bv_campaign_results view contains detailed information about campaign performance metrics. It includes fields such as the result ID, campaign ID, date of recording, impressions, clicks, conversions, and the timestamp for record creation. This view provides granular data that captures the effectiveness of campaigns, including their reach, engagement, and conversion rates. The bv_campaign_results view could be used to analyze and evaluate the performance of advertising campaigns. This data can help organizations measure campaign success, optimize strategies, and make data-driven decisions for future campaigns.'
+    TAGS (campaigns)
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE NOEXPIRE
+    ADD SEARCHMETHOD bv_campaign_results(
+        I18N us_est
+        CONSTRAINTS (
+             ADD result_id (any) OPT ANY
+             ADD campaign_id (any) OPT ANY
+             ADD date (any) OPT ANY
+             ADD impressions (any) OPT ANY
+             ADD clicks (any) OPT ANY
+             ADD conversions (any) OPT ANY
+             ADD date_created (any) OPT ANY
+        )
+        OUTPUTLIST (campaign_id, clicks, conversions, date, date_created, impressions, result_id
+        )
+        WRAPPER (jdbc bv_campaign_results)
+    );
+

@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE ASSOCIATION "bv_Customers_bv_Customer_Demographics" REFERENTIAL CONSTRAINT 
+FOLDER = '/5 - associations'
+    ENDPOINT "bv_Customer_Demographics" bv_customers PRINCIPAL (0,1)
+    ENDPOINT "bv_Customers" bv_customer_demographics (0,*)
+    ADD MAPPING customer_id=customer_id;
+

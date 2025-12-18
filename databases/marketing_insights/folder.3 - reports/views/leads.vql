@@ -1,0 +1,13 @@
+﻿CREATE OR REPLACE VIEW leads FOLDER = '/3 - reports'
+    TAGS (lead) (
+    lead_identifier (description = 'Represents a unique identifier for each lead, ensuring precise tracking and differentiation for data management and analysis.'),
+    campaign_identifier (description = 'Denotes the identifier of the campaign associated with a lead, facilitating the linkage between leads and their corresponding marketing efforts.') TAGS (campaigns),
+    lead_source (description = 'Indicates the origin or channel through which a lead was acquired, offering insights into lead-generation effectiveness. It includes values like "Referral", "Website", "Social Media", and "Event".'),
+    lead_creation_date (description = 'Captures the specific date when the lead was created, aiding chronological tracking and trend analysis.'),
+    lead_status (description = 'Represents the current state or progress of a lead within the engagement pipeline, providing visibility into its lifecycle. It includes values like "Qualified", "New", "Contacted", and "Converted".')
+ )
+ AS SELECT bv_leads.lead_id AS lead_identifier, bv_leads.campaign_id AS campaign_identifier, bv_leads.source AS lead_source, bv_leads.date_generated AS lead_creation_date, bv_leads.status AS lead_status FROM bv_leads;
+
+ALTER VIEW leads
+ LAYOUT (bv_leads = [20, 20, 200, 200]);
+

@@ -1,0 +1,8 @@
+﻿CREATE OR REPLACE VIEW total_budget FOLDER = '/3 - reports' (
+    aggregated_financial_allocation (description = 'Represents the aggregated financial value or monetary allocation for a specific purpose.')
+ )
+ AS SELECT iv_total_budget.total_budget AS aggregated_financial_allocation FROM iv_total_budget;
+
+ALTER VIEW total_budget
+ LAYOUT (iv_total_budget = [454, 102, 200, 200]);
+
