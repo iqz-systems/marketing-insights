@@ -17,7 +17,7 @@ CREATE OR REPLACE WRAPPER JDBC bv_campaigns
     );
 
 CREATE OR REPLACE TABLE bv_campaigns I18N us_est (
-        campaign_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19'),
+        campaign_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Unique identifier of a campaign, ensuring its distinction from other campaigns.'),
         client_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Denotes the identifier of the client associated with the campaign, linking campaigns to their respective clients.'),
         campaign_name:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '100', description = 'Specifies the name of the campaign, serving as an easily recognizable label for identification. It includes values like "Holiday Blitz", "Summer Sale", "Winter Wonderland", and "New Year New Deals".'),
         start_date:localdate (sourcetypeid = '91', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '10', description = 'Indicates the date on which the campaign begins, marking the commencement of its activities.'),
