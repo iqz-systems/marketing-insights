@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW campaigns_final FOLDER = '/3 - reports' AS SELECT iv_campaigns.campaign_id AS "CampaignID", iv_campaigns.client_id AS client_id, iv_campaigns.campaign_name AS "CampaignName", iv_campaigns.start_date AS start_date, iv_campaigns.end_date AS end_date, iv_campaigns.budget AS budget, iv_campaigns.status AS status, iv_campaigns.date_created AS date_created FROM iv_campaigns;
+
+ALTER VIEW campaigns_final
+ LAYOUT (iv_campaigns = [20, 20, 200, 200]);
+

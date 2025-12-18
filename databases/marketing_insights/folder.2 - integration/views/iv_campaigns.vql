@@ -1,0 +1,12 @@
+﻿CREATE OR REPLACE VIEW iv_campaigns FOLDER = '/2 - integration' (
+    campaign_id TAGS (campaigns),
+    client_id TAGS (client),
+    campaign_name TAGS (campaigns),
+    start_date TAGS (campaign_date),
+    end_date TAGS (campaign_date)
+ )
+ AS SELECT bv_campaigns.campaign_id AS campaign_id, bv_campaigns.client_id AS client_id, bv_campaigns.campaign_name AS campaign_name, bv_campaigns.start_date AS start_date, bv_campaigns.end_date AS end_date, bv_campaigns.budget AS budget, bv_campaigns.status AS status, bv_campaigns.date_created AS date_created FROM bv_campaigns;
+
+ALTER VIEW iv_campaigns
+ LAYOUT (bv_campaigns = [255, 450, 200, 200]);
+

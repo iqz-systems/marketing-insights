@@ -1,0 +1,17 @@
+﻿CREATE OR REPLACE VIEW customers FOLDER = '/3 - reports' (
+    unique_customer_id (description = 'Serves as a unique identifier for each customer, ensuring that every record is distinctly recognized within the database.') TAGS (customer),
+    customer_first_name (description = 'Represents the customer''s first name, capturing their given name. It includes values like "Leonard", "Kareem", "Omer", and "Porfirio".') TAGS (customer),
+    customer_last_name (description = 'Represents the customer''s surname or family name, identifying their lineage or family background. It includes values like "Moss", "Flynn", "Conley", and "Downs".') TAGS (customer),
+    customer_email_address (description = 'Contains the customer’s email address, serving as a key point of contact for communication. It includes values like "mossl55@icloud.com", "flynnk96@outlook.c...", "oconley@yahoo.com", and "downs.p@protonmai...".') TAGS (email),
+    customer_phone_number (description = 'Holds the customer’s phone number, used for direct communication purposes. It includes values like "322-177-8366", "071-800-4528", "347-021-4764", and "526-715-6978".') TAGS (restricted),
+    customer_address (description = 'Details the customer’s physical address, typically used for mailing or billing activities. It includes values like "583 Higuera Mews", "40 Manseau Trail", "546 Cadell Green", and "166 Madison Drive".') TAGS (address),
+    customer_city (description = 'Specifies the city in which the customer resides, providing a geographical context. It includes values like "Johnson City", "Leander", "Alpharetta", and "Rockledge".') TAGS (city),
+    customer_state (description = 'Indicates the state or region associated with the customer’s address, offering deeper location specifics. It includes values like "Pennsylvania", "Kentucky", "Virginia", and "Arkansas".') TAGS (state),
+    customer_country (description = 'Represents the country where the customer resides or conducts business, enabling international identification. It includes values like "San Marino", "São Tomé & Prín...", "Cocos", and "Belgium".') TAGS (country),
+    customer_postal_code (description = 'Holds the postal or ZIP code of the customer’s address, facilitating precise location identification. It includes values like "84461", "79525", "10004", and "76742".') TAGS (postal_code)
+ )
+ AS SELECT bv_customers.customer_id AS unique_customer_id, bv_customers.first_name AS customer_first_name, bv_customers.last_name AS customer_last_name, bv_customers.email AS customer_email_address, bv_customers.phone AS customer_phone_number, bv_customers.address AS customer_address, bv_customers.city AS customer_city, bv_customers.state AS customer_state, bv_customers.country AS customer_country, bv_customers.postal_code AS customer_postal_code FROM bv_customers;
+
+ALTER VIEW customers
+ LAYOUT (bv_customers = [596, 331, 200, 200]);
+

@@ -1,0 +1,74 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_leads
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DATASOURCENAME=ds_sql_marketing_insightsdb
+    CATALOGNAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_leads.CATALOGNAME}' 
+    SCHEMANAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_leads.SCHEMANAME}' 
+    RELATIONNAME='leads' 
+    OUTPUTSCHEMA (
+        lead_id = 'lead_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', sourcetypeid='-5', sourcetypename='bigint identity')  NOT NULL SORTABLE IS_AUTOINCREMENT,
+        campaign_id = 'campaign_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', sourcetypeid='-5', sourcetypename='bigint')  SORTABLE,
+        source = 'source' :'java.lang.String' (OPT) (sourcetypesize='100', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        date_generated = 'date_generated' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='91', sourcetypename='date')  SORTABLE,
+        status = 'status' :'java.lang.String' (OPT) (sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        customer_name = 'customer_name' :'java.lang.String' (OPT) (sourcetypesize='100', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        customer_email = 'customer_email' :'java.lang.String' (OPT) (sourcetypesize='100', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        customer_phone = 'customer_phone' :'java.lang.String' (OPT) (sourcetypesize='20', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        customer_address = 'customer_address' :'java.lang.String' (OPT) (sourcetypesize='255', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        customer_city = 'customer_city' :'java.lang.String' (OPT) (sourcetypesize='100', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        customer_state = 'customer_state' :'java.lang.String' (OPT) (sourcetypesize='100', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        customer_zip = 'customer_zip' :'java.lang.String' (OPT) (sourcetypesize='20', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        customer_country = 'customer_country' :'java.lang.String' (OPT) (sourcetypesize='100', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        date_created = 'date_created' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='3', sourcetypesize='23', sourcetypeid='93', sourcetypename='datetime')  SORTABLE
+    )
+    CONSTRAINT 'PK_Leads' PRIMARY KEY ( 'lead_id' )
+    CONSTRAINT 'FK__Leads__campaign___52B92F6B' FOREIGN KEY ( 'campaign_id' ) 
+    REFERENCES 'Marketing_Insights_DS'.'dbo'.'Campaigns'( 'campaign_id' )  ON UPDATE NO ACTION  ON DELETE NO ACTION NOT DEFERRABLE 
+    INDEX 'PK_Leads' CLUSTER UNIQUE PRIMARY ( 'lead_id' );
+
+CREATE OR REPLACE TABLE bv_leads I18N us_est (
+        lead_id:long (notnull, autoincrement, sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19'),
+        campaign_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19'),
+        source:text (sourcetypeid = '12', sourcetypesize = '100'),
+        date_generated:localdate (sourcetypeid = '91', sourcetypedecimals = '0', sourcetypesize = '10'),
+        status:text (sourcetypeid = '12', sourcetypesize = '50'),
+        customer_name:text (sourcetypeid = '12', sourcetypesize = '100'),
+        customer_email:text (sourcetypeid = '12', sourcetypesize = '100'),
+        customer_phone:text (sourcetypeid = '12', sourcetypesize = '20'),
+        customer_address:text (sourcetypeid = '12', sourcetypesize = '255'),
+        customer_city:text (sourcetypeid = '12', sourcetypesize = '100'),
+        customer_state:text (sourcetypeid = '12', sourcetypesize = '100'),
+        customer_zip:text (sourcetypeid = '12', sourcetypesize = '20'),
+        customer_country:text (sourcetypeid = '12', sourcetypesize = '100'),
+        date_created:timestamp (sourcetypeid = '93', sourcetypedecimals = '3', sourcetypesize = '23')
+    )
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DESCRIPTION = 'The bv_leads view represents a structured dataset containing information about leads generated from various campaigns and sources. The schema includes fields for identifying and describing leads, such as lead_id (primary key), campaign_id, source, date_generated, and status. Additionally, it contains detailed customer information, including customer_name, customer_email, customer_phone, customer_address, customer_city, customer_state, customer_zip, customer_country, and the timestamp for when the data was created (date_created). This view is associated with other views, such as bv_interactions, bv_campaigns, and bv_customers, enabling connections between leads and their associated interactions, campaigns, and customer data. These associations suggest a rich relational structure that links leads to other entities in the dataset. 
+
+This view could be used for tracking, managing, and analyzing leads generated from campaigns and various sources. It can serve as a valuable dataset for sales and marketing teams to monitor lead generation, analyze lead conversion rates, and understand customer demographics. Furthermore, its associations with interactions, campaigns, and customer data suggest applications in building customer profiles, optimizing campaign strategies, and understanding how leads interact with the organization.'
+    CONSTRAINT 'PK_Leads' PRIMARY KEY ( 'lead_id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_leads(
+        I18N us_est
+        CONSTRAINTS (
+             ADD lead_id (any) OPT ANY
+             ADD campaign_id (any) OPT ANY
+             ADD source (any) OPT ANY
+             ADD date_generated (any) OPT ANY
+             ADD status (any) OPT ANY
+             ADD customer_name (any) OPT ANY
+             ADD customer_email (any) OPT ANY
+             ADD customer_phone (any) OPT ANY
+             ADD customer_address (any) OPT ANY
+             ADD customer_city (any) OPT ANY
+             ADD customer_state (any) OPT ANY
+             ADD customer_zip (any) OPT ANY
+             ADD customer_country (any) OPT ANY
+             ADD date_created (any) OPT ANY
+        )
+        OUTPUTLIST (campaign_id, customer_address, customer_city, customer_country, customer_email, customer_name, customer_phone, customer_state, customer_zip, date_created, date_generated, lead_id, source, status
+        )
+        WRAPPER (jdbc bv_leads)
+    );
+

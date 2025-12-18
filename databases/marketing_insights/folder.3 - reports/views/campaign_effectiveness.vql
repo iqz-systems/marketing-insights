@@ -1,0 +1,10 @@
+﻿CREATE OR REPLACE VIEW campaign_effectiveness FOLDER = '/3 - reports' (
+    marketing_campaign_title (description = 'Represents the title or identifier of a marketing campaign, allowing for easy recognition and tracking. It includes values like "Summer Sale", "Back-to-School Bo...", "Flash Sale", and "New Year New D...".') TAGS (campaigns),
+    successful_customer_actions (description = 'Indicates the total number of successful customer actions or transactions attributed to a campaign, reflecting its effectiveness.'),
+    return_on_investment (description = 'Shows the return on investment (ROI) as a decimal value, highlighting the financial profitability generated from the campaign efforts.') TAGS (profit_margin)
+ )
+ AS SELECT iv_campaign_effectiveness.campaign_name AS marketing_campaign_title, iv_campaign_effectiveness.conversions AS successful_customer_actions, iv_campaign_effectiveness.roi AS return_on_investment FROM iv_campaign_effectiveness;
+
+ALTER VIEW campaign_effectiveness
+ LAYOUT (iv_campaign_effectiveness = [295, 60, 200, 200]);
+

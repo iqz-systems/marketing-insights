@@ -1,0 +1,43 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_customer_activity_log
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DATASOURCENAME=ds_sql_marketing_insightsdb
+    CATALOGNAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_customer_activity_log.CATALOGNAME}' 
+    SCHEMANAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_customer_activity_log.SCHEMANAME}' 
+    RELATIONNAME='customer_activity_log' 
+    OUTPUTSCHEMA (
+        log_id = 'log_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        customer_id = 'customer_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        activity_type = 'activity_type' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        activity_date = 'activity_date' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='9', sourcetyperadix='0', sourcetypesize='29', description='', sourcetypeid='93', sourcetypename='TIMESTAMP')  SORTABLE,
+        details = 'details' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='2147483647', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        date_created = 'date_created' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='9', sourcetyperadix='0', sourcetypesize='29', description='', sourcetypeid='93', sourcetypename='TIMESTAMP')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_customer_activity_log I18N us_est (
+        log_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Represents a unique identifier for each recorded customer activity.'),
+        customer_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Identifies the customer associated with the recorded activity.'),
+        activity_type:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '50', description = 'Specifies the category or type of activity performed by the customer. It includes values like "Click", "View", "Email Opened", and "Email Sent".'),
+        activity_date:timestamp (sourcetypeid = '93', sourcetyperadix = '0', sourcetypedecimals = '9', sourcetypesize = '29', description = 'Indicates the date and time when the customer activity occurred.'),
+        details:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '2147483647', description = 'Provides further information or description of the customer activity. It includes values like "Clicked on ad link", "Viewed product page", "Opened email newslet...", and "Sent promotional em...".'),
+        date_created:timestamp (sourcetypeid = '93', sourcetyperadix = '0', sourcetypedecimals = '9', sourcetypesize = '29', description = 'Records the timestamp when the activity log entry was created.')
+    )
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DESCRIPTION = 'The bv_customer_activity_log view captures detailed records of customer activities, providing comprehensive insight into interactions and actions taken by customers. It includes fields such as a unique activity log identifier (log_id), customer identification (customer_id), activity type (activity_type), the date and time of activity occurrence (activity_date), detailed descriptions of the activity (details), and the timestamp recording the creation of the activity log entry (date_created). This view is associated with the bv_customers view through customer_id, linking customer information directly to their activities. This view could be utilized for analyzing customer behavior, tracking engagement trends, and identifying interaction patterns with products or services. It can serve as a foundational dataset for marketing campaigns, improving customer experience, and generating personalized recommendations based on historical activity logs.'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_customer_activity_log(
+        I18N us_est
+        CONSTRAINTS (
+             ADD log_id (any) OPT ANY
+             ADD customer_id (any) OPT ANY
+             ADD activity_type (any) OPT ANY
+             ADD activity_date (any) OPT ANY
+             ADD details (any) OPT ANY
+             ADD date_created (any) OPT ANY
+        )
+        OUTPUTLIST (activity_date, activity_type, customer_id, date_created, details, log_id
+        )
+        WRAPPER (jdbc bv_customer_activity_log)
+    );
+

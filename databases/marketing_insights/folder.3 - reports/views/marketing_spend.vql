@@ -1,0 +1,10 @@
+﻿CREATE OR REPLACE VIEW marketing_spend FOLDER = '/3 - reports' (
+    total_expenditure (description = 'Represents the monetary amount spent or utilized toward campaigns or marketing initiatives, reflecting the actual expenditure incurred.') TAGS (sales),
+    campaign_identifier (description = 'Indicates the unique identifier of the campaign associated with the channel, ensuring precise alignment and attribution between campaigns and their respective channels.') TAGS (campaigns),
+    allocated_budget (description = 'Denotes the financial resources that have been designated or set aside for campaigns, providing a clear outline of planned spending.') TAGS (budget)
+ )
+ AS SELECT iv_marketing_spend.total_spend AS total_expenditure, campaign_id AS campaign_identifier, budget AS allocated_budget FROM iv_marketing_spend;
+
+ALTER VIEW marketing_spend
+ LAYOUT (iv_marketing_spend = [480, 94, 200, 200]);
+

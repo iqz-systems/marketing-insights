@@ -1,0 +1,10 @@
+﻿CREATE OR REPLACE VIEW iv_resort_performance FOLDER = '/2 - integration' (
+    client_name TAGS (client),
+    revenue TAGS (sales),
+    resort TAGS (resort)
+ )
+ AS SELECT bv_clients.client_name AS client_name, (sum(bv_campaign_results.conversions)*100.0) AS revenue, bv_clients.client_name AS resort FROM bv_clients AS bv_clients INNER JOIN (bv_campaigns AS bv_campaigns INNER JOIN bv_campaign_results AS bv_campaign_results ON bv_campaigns.campaign_id = bv_campaign_results.campaign_id ) ON bv_clients.client_id = bv_campaigns.client_id  GROUP BY bv_clients.client_name;
+
+ALTER VIEW iv_resort_performance
+ LAYOUT (bv_clients = [219, 23, 200, 200], bv_campaigns = [478, 34, 200, 200], bv_campaign_results = [824, 84, 200, 200]);
+

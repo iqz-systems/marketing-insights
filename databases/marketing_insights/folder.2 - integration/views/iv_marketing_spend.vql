@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE VIEW iv_marketing_spend FOLDER = '/2 - integration' (
+    total_spend (description = ''),
+    campaign_id TAGS (campaigns)
+ )
+ AS SELECT campaign_id AS campaign_id, sum(budget_allocated) AS budget, sum(actual_cost) AS total_spend FROM bv_campaign_channels GROUP BY campaign_id;
+
+ALTER VIEW iv_marketing_spend
+ LAYOUT (bv_campaign_channels = [362, 119, 200, 200]);
+
