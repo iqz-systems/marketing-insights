@@ -1,0 +1,9 @@
+﻿1/databases/marketing_insights/folder.3 - reports/3 - reports.vql
+1/tags/client.vql
+1/tags/resort.vql
+1/tags/sales.vql
+*/databases/marketing_insights/folder.2 - integration/2 - integration.vql
+*/tags/client.vql
+*/tags/resort.vql
+*/tags/sales.vql
+1/databases/marketing_insights/folder.2 - integration/views/iv_resort_performance.vql
