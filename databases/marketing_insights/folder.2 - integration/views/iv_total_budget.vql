@@ -1,5 +1,5 @@
 ﻿CREATE OR REPLACE VIEW iv_total_budget FOLDER = '/2 - integration' (
-    total_budget (description = '')
+    total_budget (description = 'total_budget_for_marketing')
  )
  AS SELECT sum(budget) AS total_budget FROM bv_campaigns;
 
