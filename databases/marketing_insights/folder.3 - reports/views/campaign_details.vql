@@ -1,5 +1,5 @@
 ﻿CREATE OR REPLACE VIEW campaign_details FOLDER = '/3 - reports' (
-    campaign_title (description = 'campaign name') TAGS (campaigns),
+    campaign_name_title (description = 'campaign name') TAGS (campaigns),
     marketing_channel_name (description = 'campaign channel name'),
     marketing_channel_type (description = 'campaign channel type'),
     allocated_budget (description = 'campaign budget amount'),
@@ -9,7 +9,7 @@
     associated_client_id TAGS (client),
     unique_campaign_id TAGS (campaigns)
  )
- AS SELECT "bv_Campaigns".campaign_name AS campaign_title, "bv_Campaign_Channels".channel_name AS marketing_channel_name, "bv_Campaign_Channels".channel_type AS marketing_channel_type, "bv_Campaign_Channels".budget_allocated AS allocated_budget, "bv_Campaign_Channels".actual_cost AS incurred_cost, "bv_Campaigns".start_date AS campaign_start_date, "bv_Campaigns".end_date AS campaign_end_date, "bv_Campaigns".client_id AS associated_client_id, "bv_Campaigns".campaign_id AS unique_campaign_id FROM bv_campaign_channels AS "bv_Campaign_Channels" INNER JOIN bv_campaigns AS "bv_Campaigns" ON "bv_Campaign_Channels".campaign_id = "bv_Campaigns".campaign_id ;
+ AS SELECT "bv_Campaigns".campaign_name AS campaign_name_title, "bv_Campaign_Channels".channel_name AS marketing_channel_name, "bv_Campaign_Channels".channel_type AS marketing_channel_type, "bv_Campaign_Channels".budget_allocated AS allocated_budget, "bv_Campaign_Channels".actual_cost AS incurred_cost, "bv_Campaigns".start_date AS campaign_start_date, "bv_Campaigns".end_date AS campaign_end_date, "bv_Campaigns".client_id AS associated_client_id, "bv_Campaigns".campaign_id AS unique_campaign_id FROM bv_campaign_channels AS "bv_Campaign_Channels" INNER JOIN bv_campaigns AS "bv_Campaigns" ON "bv_Campaign_Channels".campaign_id = "bv_Campaigns".campaign_id ;
 
 ALTER VIEW campaign_details
  LAYOUT (bv_campaign_channels = [20, 20, 200, 200], bv_campaigns = [191, 266, 200, 200]);
