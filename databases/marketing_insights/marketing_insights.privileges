@@ -1,0 +1,7 @@
+ALTER ROLE dn_rl_marketing_insights_dev_developer
+GRANT ROLE manage_workspaces
+GRANT ADMIN ON marketing_insights;
+
+ALTER USER nuvindaravishan
+GRANT CONNECT, METADATA, EXECUTE ON marketing_insights;
+
