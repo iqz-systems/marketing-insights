@@ -1,0 +1,52 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_customer_demographics
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DATASOURCENAME=ds_postgres_marketing_insights
+    CATALOGNAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_customer_demographics.CATALOGNAME}' 
+    SCHEMANAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_customer_demographics.SCHEMANAME}' 
+    RELATIONNAME='customer_demographics' 
+    OUTPUTSCHEMA (
+        customer_id = 'customer_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        age = 'age' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        gender = 'gender' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='20', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        income = 'income' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='2', sourcetyperadix='10', sourcetypesize='18', description='', sourcetypeid='3', sourcetypename='DECIMAL')  SORTABLE,
+        interests = 'interests' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='2147483647', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        marital_status = 'marital_status' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        education_level = 'education_level' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        other_demographic_info = 'other_demographic_info' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='2147483647', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        date_created = 'date_created' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='9', sourcetyperadix='0', sourcetypesize='29', description='', sourcetypeid='93', sourcetypename='TIMESTAMP')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_customer_demographics I18N us_est (
+        customer_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Serves as a unique identifier for each customer, enabling distinct record management and individual profiling.'),
+        age:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Represents the customer''s age, offering insights into demographic distribution and enabling segmentation by generational groups.'),
+        gender:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '20', description = 'Indicates the customer''s gender, aiding in demographic analysis and inclusive profiling. It includes values like "Non-Binary", "Female", "Male", and "Other".'),
+        income:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '18', description = 'Represents the customer''s income level, providing data for economic segmentation and purchasing power analysis.'),
+        interests:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '2147483647', description = 'Captures the customer''s interests and preferences, enhancing personalized engagement strategies. It includes values like "Sports, Food", "Movies, Books", "Technology, Books,...", and "Sports, Movies".'),
+        marital_status:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '50', description = 'Denotes the marital status of the customer, supporting demographic categorization. It includes values like "Single", "Married", "Divorced", and "Widowed".'),
+        education_level:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '50', description = 'Represents the highest level of education attained by the customer, facilitating insights into educational demographics. It includes values like "Associate''s", "PhD", "High School", and "Master''s".'),
+        other_demographic_info:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '2147483647', description = 'Provides additional demographic details about the customer, supporting comprehensive profiling. It includes values like "N/A", "Has Children", "Employee", and "Self-Employed".'),
+        date_created:timestamp (sourcetypeid = '93', sourcetyperadix = '0', sourcetypedecimals = '9', sourcetypesize = '29', description = 'Records the date and time when the customer information was initially created, enabling chronological tracking and historical analysis.')
+    )
+    FOLDER = '/1 - dataconnection/2 - base views'
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE NOEXPIRE
+    ADD SEARCHMETHOD bv_customer_demographics(
+        I18N us_est
+        CONSTRAINTS (
+             ADD customer_id (any) OPT ANY
+             ADD age (any) OPT ANY
+             ADD gender (any) OPT ANY
+             ADD income (any) OPT ANY
+             ADD interests (any) OPT ANY
+             ADD marital_status (any) OPT ANY
+             ADD education_level (any) OPT ANY
+             ADD other_demographic_info (any) OPT ANY
+             ADD date_created (any) OPT ANY
+        )
+        OUTPUTLIST (age, customer_id, date_created, education_level, gender, income, interests, marital_status, other_demographic_info
+        )
+        WRAPPER (jdbc bv_customer_demographics)
+    );
+

@@ -1,0 +1,50 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_campaign_targets
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DATASOURCENAME=ds_postgres_marketing_insights
+    CATALOGNAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_campaign_targets.CATALOGNAME}' 
+    SCHEMANAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_campaign_targets.SCHEMANAME}' 
+    RELATIONNAME='campaign_targets' 
+    OUTPUTSCHEMA (
+        target_id = 'target_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        campaign_id = 'campaign_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        target_segment = 'target_segment' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        demographic_criteria = 'demographic_criteria' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='2147483647', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        behavioral_criteria = 'behavioral_criteria' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='2147483647', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        target_size = 'target_size' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  SORTABLE,
+        conversion_goals = 'conversion_goals' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        date_created = 'date_created' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='9', sourcetyperadix='0', sourcetypesize='29', description='', sourcetypeid='93', sourcetypename='TIMESTAMP')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_campaign_targets I18N us_est (
+        target_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Represents a unique identifier for each targeting group.') TAGS (campaigns),
+        campaign_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Represents the identifier for the campaign associated with the targeting group.') TAGS (campaigns),
+        target_segment:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '100', description = 'Defines the specific audience grouping based on shared characteristics. It includes values like "Sports Fans", "Seniors", "Middle-Aged Prof...", and "Tech Enthusiasts".') TAGS (campaigns),
+        demographic_criteria:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '2147483647', description = 'Describes the demographic attributes used to define the target audience. It includes values like "Income: $$40k-$$60k", "Gender: Female", "Location: Urban", and "Location: Rural".'),
+        behavioral_criteria:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '2147483647', description = 'Details behavioral patterns or tendencies of the target audience. It includes values like "Frequent Online Sho...", "Price-Sensitive", "High Engagement", and "Brand-Loyal".'),
+        target_size:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = 'Indicates the estimated size of the target audience for a given campaign.'),
+        conversion_goals:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '100', description = 'Specifies the objectives or desired outcomes for targeting efforts. It includes values like "Increase Sales by 10%", "Generate 100 Leads", "Achieve 5% Conversi...", and "Boost Brand Awareness".') TAGS (campaigns),
+        date_created:timestamp (sourcetypeid = '93', sourcetyperadix = '0', sourcetypedecimals = '9', sourcetypesize = '29', description = 'Denotes the timestamp when the targeting group entry was created.') TAGS (campaign_date)
+    )
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DESCRIPTION = 'The bv_campaign_targets view represents targeting groups associated with campaigns. It includes fields such as target_id (unique identifier for targeting groups), campaign_id (identifier for associated campaigns), target_segment (audience groupings like "Sports Fans" or "Tech Enthusiasts"), demographic_criteria (attributes like income level, gender, or location), behavioral_criteria (patterns like "Frequent Online Shoppers" or "Brand-Loyal"), target_size (estimated audience size), conversion_goals (campaign objectives like "Increase Sales by 10%" or "Generate Leads"), and date_created (timestamp of creation). This view could be used for campaign planning and analysis. Businesses could leverage this information to define target audiences, set campaign goals, and evaluate targeting effectiveness based on demographic, behavioral, and segment data. Additionally, the view supports mapping with the bv_campaigns table to align targeting data with campaign details.'
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE NOEXPIRE
+    ADD SEARCHMETHOD bv_campaign_targets(
+        I18N us_est
+        CONSTRAINTS (
+             ADD target_id (any) OPT ANY
+             ADD campaign_id (any) OPT ANY
+             ADD target_segment (any) OPT ANY
+             ADD demographic_criteria (any) OPT ANY
+             ADD behavioral_criteria (any) OPT ANY
+             ADD target_size (any) OPT ANY
+             ADD conversion_goals (any) OPT ANY
+             ADD date_created (any) OPT ANY
+        )
+        OUTPUTLIST (behavioral_criteria, campaign_id, conversion_goals, date_created, demographic_criteria, target_id, target_segment, target_size
+        )
+        WRAPPER (jdbc bv_campaign_targets)
+    );
+

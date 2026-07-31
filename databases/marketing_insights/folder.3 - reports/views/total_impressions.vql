@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE VIEW total_impressions FOLDER = '/3 - reports'
+    TAGS (mcp) (
+    total_exposure_count (description = 'Represents the total count of impressions observed, often serving as a metric for tracking exposure or engagement levels in a given context.')
+ )
+ AS SELECT iv_total_impressions.total_impressions AS total_exposure_count FROM iv_total_impressions;
+
+ALTER VIEW total_impressions
+ LAYOUT (iv_total_impressions = [495, 126, 200, 200]);
+

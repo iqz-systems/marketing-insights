@@ -1,0 +1,59 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_customers
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DATASOURCENAME=ds_postgres_marketing_insights
+    CATALOGNAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_customers.CATALOGNAME}' 
+    SCHEMANAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_customers.SCHEMANAME}' 
+    RELATIONNAME='customers' 
+    OUTPUTSCHEMA (
+        customer_id = 'customer_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        first_name = 'first_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        last_name = 'last_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        email = 'email' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        phone = 'phone' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='20', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        address = 'address' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='255', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        city = 'city' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        state = 'state' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        country = 'country' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        postal_code = 'postal_code' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='20', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        date_created = 'date_created' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='9', sourcetyperadix='0', sourcetypesize='29', description='', sourcetypeid='93', sourcetypename='TIMESTAMP')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_customers I18N us_est (
+        customer_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Serves as a unique identifier for each customer in the system.') TAGS (customer_domain),
+        first_name:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '50', description = 'Represents the customer''s first name. It includes values like "Rosendo", "Leonard", "Sebrina", and "Omer".') TAGS (customer_domain),
+        last_name:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '50', description = 'Represents the customer''s surname or family name. It includes values like "Cummings", "Moss", "Stanton", and "Conley".') TAGS (customer_domain),
+        email:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '100', description = 'Contains the customer''s email address for communication purposes. It includes values like "rosendo.cummings@ou...", "mossl55@icloud.com", "sstanton@gmail.com", and "oconley@yahoo.com".') TAGS (email),
+        phone:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '20', description = 'Holds the customer''s phone number for contact purposes. It includes values like "021-255-7037", "322-177-8366", "311-729-4388", and "347-021-4764".'),
+        address:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '255', description = 'Details the customer''s physical address, typically used for mailing or billing. It includes values like "208 Warner Mall", "583 Higuera Mews", "678 Fair Pass", and "546 Cadell Green".') TAGS (address),
+        city:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '100', description = 'Specifies the city in which the customer resides. It includes values like "Cuyahoga Falls", "Johnson City", "Jeffersonville", and "Alpharetta".') TAGS (city),
+        state:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '100', description = 'Indicates the state or region associated with the customer''s address. It includes values like "Missouri", "Pennsylvania", "Minnesota", and "Virginia".') TAGS (state),
+        country:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '100', description = 'Represents the country where the customer resides or does business. It includes values like "Norway", "San Marino", "Curaçao", and "Cocos".') TAGS (country),
+        postal_code:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '20', description = 'Holds the postal or ZIP code of the customer''s address for location identification. It includes values like "55338", "84461", "95878", and "10004".') TAGS (postal_code),
+        date_created:timestamp (sourcetypeid = '93', sourcetyperadix = '0', sourcetypedecimals = '9', sourcetypesize = '29', description = 'Indicates the date and time when the customer''s record was first created in the system.')
+    )
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DESCRIPTION = 'The bv_customers view contains detailed information about customers, including their unique identifiers, names, contact details, physical addresses, and the date when their record was created in the system. This view offers real data examples such as customer names ("Rosendo Cummings", "Leonard Moss"), email addresses ("rosendo.cummings@ou...", "mossl55@icloud.com"), phone numbers ("021-255-7037", "322-177-8366"), and addresses ("208 Warner Mall", "583 Higuera Mews"). Additionally, it specifies the cities, states, countries, and postal codes related to the customer''s location. It is associated with other views such as bv_customer_demographics, bv_customer_activity_log, and bv_leads, which provide further insights into customer demographics, activity logs, and lead generation data. The bv_customers view could be used for managing customer profiles, analyzing customer demographics, tracking communication details, and connecting this data with customer activity logs and lead generation processes. This view can serve as a central database for customer information, enabling businesses to streamline customer relationship management (CRM), generate business insights, and improve user targeting for marketing and sales purposes.'
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE NOEXPIRE
+    ADD SEARCHMETHOD bv_customers(
+        I18N us_est
+        CONSTRAINTS (
+             ADD customer_id (any) OPT ANY
+             ADD first_name (any) OPT ANY
+             ADD last_name (any) OPT ANY
+             ADD email (any) OPT ANY
+             ADD phone (any) OPT ANY
+             ADD address (any) OPT ANY
+             ADD city (any) OPT ANY
+             ADD state (any) OPT ANY
+             ADD country (any) OPT ANY
+             ADD postal_code (any) OPT ANY
+             ADD date_created (any) OPT ANY
+        )
+        OUTPUTLIST (address, city, country, customer_id, date_created, email, first_name, last_name, phone, postal_code, state
+        )
+        WRAPPER (jdbc bv_customers)
+    );
+

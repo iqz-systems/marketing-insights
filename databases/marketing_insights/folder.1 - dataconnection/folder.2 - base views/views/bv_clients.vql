@@ -1,0 +1,69 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_clients
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DATASOURCENAME=ds_postgres_marketing_insights
+    CATALOGNAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_clients.CATALOGNAME}' 
+    SCHEMANAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_clients.SCHEMANAME}' 
+    RELATIONNAME='clients' 
+    OUTPUTSCHEMA (
+        client_id = 'client_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        client_name = 'client_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        company = 'company' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        contact_name = 'contact_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        email = 'email' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        phone = 'phone' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='20', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        address = 'address' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='255', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        city = 'city' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        state = 'state' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        zip = 'zip' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='20', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        country = 'country' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        industry = 'industry' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        client_type = 'client_type' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        date_created = 'date_created' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='9', sourcetyperadix='0', sourcetypesize='29', description='', sourcetypeid='93', sourcetypename='TIMESTAMP')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_clients I18N us_est (
+        client_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Serves as a unique identifier for each client, ensuring the distinction of records within the database.'),
+        client_name:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '100', description = 'Represents the official name or title of the client entity, enabling easy recognition. It includes values like "johnson_corp", "smith_retail", "davis_consultin...", and "green_tech".'),
+        company:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '100', description = 'Indicates the name of the company associated with the client, providing a direct connection to the organizational identity. It includes values like "Johnson Corporation", "Smith''s Retail", "Davis Consulting", and "Green Tech Solutio...".'),
+        contact_name:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '100', description = 'Denotes the name of the primary contact person for the client, facilitating communication and relationship management. It includes values like "Michael Johnson", "Emily Smith", "David Davis", and "Sarah Green".'),
+        email:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '100', description = 'Captures the email address of the client or their representative, enabling digital correspondence. It includes values like "michael.johnson@exam...", "emily.smith@example....", "david.davis@exampl...", and "sarah.green@exampl...".'),
+        phone:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '20', description = 'Records the phone number of the client or their representative, ensuring accessibility for verbal communication. It includes values like "(123) 456-7890", "(987) 654-3210", "(555) 123-4567", and "(321) 876-5432".'),
+        address:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '255', description = 'Specifies the physical location or mailing address associated with the client, aiding logistical operations. It includes values like "123 Main St", "456 Elm St", "789 Oak St", and "111 Pine St".'),
+        city:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '50', description = 'Identifies the city where the client is based, providing a geographical dimension to their location. It includes values like "New York", "Los Angeles", "Chicago", and "Seattle".'),
+        state:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '50', description = 'Denotes the state or region associated with the client''s address, specifying administrative division. It includes values like "NY", "CA", "IL", and "WA".'),
+        zip:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '20', description = 'Represents the postal or ZIP code corresponding to the client''s address, ensuring accurate mail delivery. It includes values like "10001", "90002", "60601", and "98101".'),
+        country:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '50', description = 'Indicates the country of residence or operation for the client, reflecting their global presence. It includes values like "USA", "USA", "USA", and "USA".'),
+        industry:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '50', description = 'Defines the sector or domain in which the client operates, reflecting their business focus. It includes values like "Technology", "Retail", "Consulting", and "Software".'),
+        client_type:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '50', description = 'Describes the classification of the client, providing insight into their operational structure. It includes values like "Corporate", "Corporate", "Sole Proprietor", and "Startup".'),
+        date_created:timestamp (sourcetypeid = '93', sourcetyperadix = '0', sourcetypedecimals = '9', sourcetypesize = '29', description = 'Specifies the date and time when the client record was initially created, aiding in timeline tracking and audit purposes.')
+    )
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DESCRIPTION = 'The bv_clients view contains detailed information related to clients, including their unique identifiers, names, associated companies, contact details, geographical location, industry, operational classification, and the timestamp of record creation. Each field provides meaningful insights into the clients, such as their official names, contact persons, email addresses, phone numbers, physical addresses, cities, states, zip codes, countries, industries, and client types. This structured data can assist in identifying, categorizing, and managing client entities effectively. The bv_clients view could be used for tracking client records, managing client relationships, and analyzing client data for business operations. It is particularly valuable for customer relationship management (CRM) systems, reporting purposes, logistics planning, and understanding the demographics and industries of the clientele.'
+    TAGS (address, client)
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE NOEXPIRE
+    ADD SEARCHMETHOD bv_clients(
+        I18N us_est
+        CONSTRAINTS (
+             ADD client_id (any) OPT ANY
+             ADD client_name (any) OPT ANY
+             ADD company (any) OPT ANY
+             ADD contact_name (any) OPT ANY
+             ADD email (any) OPT ANY
+             ADD phone (any) OPT ANY
+             ADD address (any) OPT ANY
+             ADD city (any) OPT ANY
+             ADD state (any) OPT ANY
+             ADD zip (any) OPT ANY
+             ADD country (any) OPT ANY
+             ADD industry (any) OPT ANY
+             ADD client_type (any) OPT ANY
+             ADD date_created (any) OPT ANY
+        )
+        OUTPUTLIST (address, city, client_id, client_name, client_type, company, contact_name, country, date_created, email, industry, phone, state, zip
+        )
+        WRAPPER (jdbc bv_clients)
+    );
+

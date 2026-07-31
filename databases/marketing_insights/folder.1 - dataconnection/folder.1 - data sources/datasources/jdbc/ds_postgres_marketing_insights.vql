@@ -1,0 +1,31 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC ds_postgres_marketing_insights
+    FOLDER = '/1 - dataconnection/1 - data sources'
+    DRIVERCLASSNAME = 'org.postgresql.Driver'
+    DATABASEURI = '${databases.marketing_insights.folder.1 - dataconnection.folder.1 - data sources.datasources.jdbc.ds_postgres_marketing_insights.DATABASEURI}'
+    USERNAME = '${databases.marketing_insights.folder.1 - dataconnection.folder.1 - data sources.datasources.jdbc.ds_postgres_marketing_insights.USERNAME}'
+    USERPASSWORD = '${databases.marketing_insights.folder.1 - dataconnection.folder.1 - data sources.datasources.jdbc.ds_postgres_marketing_insights.USERPASSWORD}' ${databases.marketing_insights.folder.1 - dataconnection.folder.1 - data sources.datasources.jdbc.ds_postgres_marketing_insights.USERPASSWORD.ENCRYPTED}
+    CLASSPATH = 'postgresql'
+    DATABASENAME = 'postgresql'
+    DATABASEVERSION = '17'
+    FETCHSIZE = 1000
+    VALIDATIONQUERY = 'Select 1'
+    INITIALSIZE = 4
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXOPENPREPAREDSTATEMENTS = -1
+    PROPERTIES ('reWriteBatchedInserts'='true', 'escapeSyntaxCallMode'='callIfNoReturn')
+    KERBEROSPROPERTIES ('jaasLogin'='false', 'user'='<user>')
+    DATA_LOAD_CONFIGURATION (
+        BATCHINSERTSIZE = 200
+    );
+

@@ -1,0 +1,48 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_campaign_channels
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DATASOURCENAME=ds_postgres_marketing_insights
+    CATALOGNAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_campaign_channels.CATALOGNAME}' 
+    SCHEMANAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_campaign_channels.SCHEMANAME}' 
+    RELATIONNAME='campaign_channels' 
+    OUTPUTSCHEMA (
+        channel_id = 'channel_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        campaign_id = 'campaign_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        channel_name = 'channel_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        channel_type = 'channel_type' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        budget_allocated = 'budget_allocated' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='2', sourcetyperadix='10', sourcetypesize='18', description='', sourcetypeid='3', sourcetypename='DECIMAL')  SORTABLE,
+        actual_cost = 'actual_cost' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='2', sourcetyperadix='10', sourcetypesize='18', description='', sourcetypeid='3', sourcetypename='DECIMAL')  SORTABLE,
+        date_created = 'date_created' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='9', sourcetyperadix='0', sourcetypesize='29', description='', sourcetypeid='93', sourcetypename='TIMESTAMP')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_campaign_channels I18N us_est (
+        channel_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Represents a unique identifier assigned to each channel, allowing differentiation and tracking of individual marketing or communication channels.'),
+        campaign_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Indicates the unique identifier of the campaign associated with the channel, ensuring precise alignment and attribution between campaigns and their channels.'),
+        channel_name:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '100', description = 'Specifies the name of the channel, reflecting its function or strategy. It includes values like "Email Marketing", "Content Marketing", "Paid Advertising", and "SEO".'),
+        channel_type:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '50', description = 'Defines the type of channel, categorizing its nature or application within the campaign context. It includes values like "Email Marketing", "Content Marketing", "Paid Advertising", and "Search Engine Opt...".'),
+        budget_allocated:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '18', description = 'Represents the financial resources designated for each channel, reflecting the planned investment in specific marketing or communication efforts.') TAGS (budget),
+        actual_cost:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '18', description = 'Indicates the actual expenditure incurred for utilizing the channel, providing insight into financial performance and cost efficiency.'),
+        date_created:timestamp (sourcetypeid = '93', sourcetyperadix = '0', sourcetypedecimals = '9', sourcetypesize = '29', description = 'Records the date and time when the channel entry was created, serving as a timestamp for tracking and auditing purposes.')
+    )
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DESCRIPTION = 'The bv_campaign_channels view represents the structured data related to marketing or communication channels associated with various campaigns. It includes details such as channel identifiers, campaign associations, channel names and types, allocated budgets, actual costs, and creation timestamps. This view provides a comprehensive representation of channels used in campaigns, along with their financial and operational attributes. The bv_campaign_channels view could be used to track, manage, and analyze the performance and allocation of resources across different marketing or communication channels associated with campaigns. It is particularly useful for financial analysis, strategy optimization, and performance auditing within marketing contexts.'
+    TAGS (campaigns)
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE NOEXPIRE
+    ADD SEARCHMETHOD bv_campaign_channels(
+        I18N us_est
+        CONSTRAINTS (
+             ADD channel_id (any) OPT ANY
+             ADD campaign_id (any) OPT ANY
+             ADD channel_name (any) OPT ANY
+             ADD channel_type (any) OPT ANY
+             ADD budget_allocated (any) OPT ANY
+             ADD actual_cost (any) OPT ANY
+             ADD date_created (any) OPT ANY
+        )
+        OUTPUTLIST (actual_cost, budget_allocated, campaign_id, channel_id, channel_name, channel_type, date_created
+        )
+        WRAPPER (jdbc bv_campaign_channels)
+    );
+

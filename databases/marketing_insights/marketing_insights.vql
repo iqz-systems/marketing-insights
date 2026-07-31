@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE DATABASE marketing_insights 'This VDB is to oversees marketing and sales
+conversion activities across multiple clients';
+
+ALTER DATABASE marketing_insights
+  CHARSET DEFAULT;
+
+ALTER DATABASE marketing_insights
+  COST OPTIMIZATION ON;
+

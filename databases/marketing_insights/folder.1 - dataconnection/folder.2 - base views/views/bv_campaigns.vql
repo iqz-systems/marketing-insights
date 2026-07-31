@@ -1,0 +1,53 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_campaigns
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DATASOURCENAME=ds_postgres_marketing_insights
+    CATALOGNAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_campaigns.CATALOGNAME}' 
+    SCHEMANAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_campaigns.SCHEMANAME}' 
+    RELATIONNAME='campaigns' 
+    OUTPUTSCHEMA (
+        campaign_id = 'campaign_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        client_id = 'client_id' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='19', description='', sourcetypeid='-5', sourcetypename='BIGINT')  SORTABLE,
+        campaign_name = 'campaign_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        start_date = 'start_date' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='10', description='', sourcetypeid='91', sourcetypename='DATE')  SORTABLE,
+        end_date = 'end_date' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='10', description='', sourcetypeid='91', sourcetypename='DATE')  SORTABLE,
+        budget = 'budget' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='2', sourcetyperadix='10', sourcetypesize='18', description='', sourcetypeid='3', sourcetypename='DECIMAL')  SORTABLE,
+        status = 'status' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='0', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        date_created = 'date_created' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='9', sourcetyperadix='0', sourcetypesize='29', description='', sourcetypeid='93', sourcetypename='TIMESTAMP')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_campaigns I18N us_est (
+        campaign_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Represents the unique identifier of a campaign, ensuring its distinction from other campaigns.'),
+        client_id:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '19', description = 'Denotes the identifier of the client associated with the campaign, linking campaigns to their respective clients.'),
+        campaign_name:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '100', description = 'Specifies the name of the campaign, serving as an easily recognizable label for identification. It includes values like "Holiday Blitz", "Summer Sale", "Winter Wonderland", and "New Year New Deals".'),
+        start_date:localdate (sourcetypeid = '91', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '10', description = 'Indicates the date on which the campaign begins, marking the commencement of its activities.'),
+        end_date:localdate (sourcetypeid = '91', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '10', description = 'Represents the date on which the campaign concludes, signifying the end of its operations or activities.'),
+        budget:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '18', description = 'Defines the monetary allocation for the campaign, outlining the financial resources dedicated to its execution.'),
+        status:text (sourcetypeid = '12', sourcetyperadix = '0', sourcetypedecimals = '0', sourcetypesize = '50', description = 'Describes the current state of the campaign, providing insights into its progress or completion. It includes values like "Completed", "Active", and "Flash Sale".'),
+        date_created:timestamp (sourcetypeid = '93', sourcetyperadix = '0', sourcetypedecimals = '9', sourcetypesize = '29', description = 'Captures the timestamp when the campaign was initially created, offering a record of its inception.')
+    )
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DESCRIPTION = 'The bv_campaigns view represents a structured repository of campaigns, uniquely identified and tied to specific clients. It contains essential details such as the campaign name (e.g., "Holiday Blitz," "Summer Sale," "Winter Wonderland"), start and end dates, allocated budget, current status (e.g., "Completed," "Active," "Flash Sale"), and the creation timestamp. This view is enriched with direct associations to other views like bv_campaign_results, bv_campaign_targets, bv_leads, and bv_campaign_channels, facilitating a deeper exploration of campaign-related data.
+
+The bv_campaigns view could be utilized for managing and analyzing marketing campaigns. It offers tools to monitor key attributes such as budget, duration, and progress while linking this core information to associated datasets such as campaign results, targets, leads, or channels. Furthermore, it serves as a valuable resource for generating detailed reports, tracking campaign performance, and refining strategies based on historical data insights.'
+    TAGS (campaigns)
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE NOEXPIRE
+    ADD SEARCHMETHOD bv_campaigns(
+        I18N us_est
+        CONSTRAINTS (
+             ADD campaign_id (any) OPT ANY
+             ADD client_id (any) OPT ANY
+             ADD campaign_name (any) OPT ANY
+             ADD start_date (any) OPT ANY
+             ADD end_date (any) OPT ANY
+             ADD budget (any) OPT ANY
+             ADD status (any) OPT ANY
+             ADD date_created (any) OPT ANY
+        )
+        OUTPUTLIST (budget, campaign_id, campaign_name, client_id, date_created, end_date, start_date, status
+        )
+        WRAPPER (jdbc bv_campaigns)
+    );
+

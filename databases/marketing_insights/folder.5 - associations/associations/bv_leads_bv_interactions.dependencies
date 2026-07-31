@@ -1,0 +1,8 @@
+﻿1/databases/marketing_insights/folder.5 - associations/5 - associations.vql
+*/databases/marketing_insights/folder.1 - dataconnection/1 - dataconnection.vql
+*/databases/marketing_insights/folder.1 - dataconnection/folder.2 - base views/2 - base views.vql
+*/databases/marketing_insights/folder.1 - dataconnection/folder.1 - data sources/1 - data sources.vql
+*/databases/marketing_insights/folder.1 - dataconnection/folder.1 - data sources/datasources/jdbc/ds_postgres_marketing_insights.vql
+1/databases/marketing_insights/folder.1 - dataconnection/folder.2 - base views/views/bv_leads.vql
+*/tags/interaction_type.vql
+1/databases/marketing_insights/folder.1 - dataconnection/folder.2 - base views/views/bv_interactions.vql

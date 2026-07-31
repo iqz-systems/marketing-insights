@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE ASSOCIATION "bv_Leads_bv_Interactions" REFERENTIAL CONSTRAINT 
+FOLDER = '/5 - associations'
+    ENDPOINT "bv_Interactions" bv_leads PRINCIPAL (0,1)
+    ENDPOINT "bv_Leads" bv_interactions (0,*)
+    ADD MAPPING lead_id=lead_id;
+

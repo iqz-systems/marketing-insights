@@ -1,0 +1,69 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_semantic_template
+    FOLDER = '/1 - dataconnection/2 - base views'
+    DATASOURCENAME=ds_sql_marketing_insightsdb
+    CATALOGNAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_semantic_template.CATALOGNAME}' 
+    SCHEMANAME='${databases.marketing_insights.folder.1 - dataconnection.folder.2 - base views.views.jdbc.bv_semantic_template.SCHEMANAME}' 
+    RELATIONNAME='semantic_template' 
+    OUTPUTSCHEMA (
+        report_id = 'report_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  SORTABLE,
+        report_name = 'report_name' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        vdb_name = 'vdb_name' :'java.lang.String' (OPT) (sourcetypesize='100', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        view_name = 'view_name' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        field_name = 'field_name' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        field_type = 'field_type' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        join_type = 'join_type' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        join_condition = 'join_condition' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        where_clause = 'where_clause' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        group_by_condition = 'group_by_condition' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        having_clause = 'having_clause' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        output_field = 'output_field' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        order_by_clause = 'order_by_clause' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        tags = 'tags' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        column_description = 'column_description' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_semantic_template I18N us_est (
+        report_id:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        report_name:text (sourcetypeid = '12', sourcetypesize = '250'),
+        vdb_name:text (sourcetypeid = '12', sourcetypesize = '100'),
+        view_name:text (sourcetypeid = '12', sourcetypesize = '250'),
+        field_name:text (sourcetypeid = '12', sourcetypesize = '250'),
+        field_type:text (sourcetypeid = '12', sourcetypesize = '250'),
+        join_type:text (sourcetypeid = '12', sourcetypesize = '250'),
+        join_condition:text (sourcetypeid = '12', sourcetypesize = '250'),
+        where_clause:text (sourcetypeid = '12', sourcetypesize = '250'),
+        group_by_condition:text (sourcetypeid = '12', sourcetypesize = '250'),
+        having_clause:text (sourcetypeid = '12', sourcetypesize = '250'),
+        output_field:text (sourcetypeid = '12', sourcetypesize = '250'),
+        order_by_clause:text (sourcetypeid = '12', sourcetypesize = '250'),
+        tags:text (sourcetypeid = '12', sourcetypesize = '250'),
+        column_description:text (sourcetypeid = '12', sourcetypesize = '250')
+    )
+    FOLDER = '/1 - dataconnection/2 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_semantic_template(
+        I18N us_est
+        CONSTRAINTS (
+             ADD report_id (any) OPT ANY
+             ADD report_name (any) OPT ANY
+             ADD vdb_name (any) OPT ANY
+             ADD view_name (any) OPT ANY
+             ADD field_name (any) OPT ANY
+             ADD field_type (any) OPT ANY
+             ADD join_type (any) OPT ANY
+             ADD join_condition (any) OPT ANY
+             ADD where_clause (any) OPT ANY
+             ADD group_by_condition (any) OPT ANY
+             ADD having_clause (any) OPT ANY
+             ADD output_field (any) OPT ANY
+             ADD order_by_clause (any) OPT ANY
+             ADD tags (any) OPT ANY
+             ADD column_description (any) OPT ANY
+        )
+        OUTPUTLIST (column_description, field_name, field_type, group_by_condition, having_clause, join_condition, join_type, order_by_clause, output_field, report_id, report_name, tags, vdb_name, view_name, where_clause
+        )
+        WRAPPER (jdbc bv_semantic_template)
+    );
+

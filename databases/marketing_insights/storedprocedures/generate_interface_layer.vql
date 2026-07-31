@@ -1,0 +1,33 @@
+﻿CREATE OR REPLACE VQL PROCEDURE generate_interface_layer(
+  --  input_folder IN VARCHAR,
+    output_folder IN VARCHAR,
+    generated_vql OUT VARCHAR
+)
+AS(
+    -- Declare cursor to scan metadata of current views
+    CURSOR cursor_views IS 
+        'SELECT * FROM GET_VIEWS() WHERE input_database_name=''marketing_insights'' and folder = ''/1 - dataconnection/2 - base views'' AND view_type = 0 and name=''bv_campaign_channels'''; 
+        
+    view_record cursor_views%ROWTYPE;
+    vql_string VARCHAR;
+    )
+BEGIN
+    OPEN cursor_views;
+    LOOP
+        FETCH cursor_views INTO view_record;
+                
+        -- Construct custom VQL string for a clean derived selection view
+        vql_string := 'CREATE OR REPLACE VIEW ' || ' i_' || view_record.name || ' Folder =''' || output_folder ||''' '
+                   || 'AS SELECT * FROM "' || view_record.name || '"';
+        
+        -- Dynamically execute the generated command in VDP
+                 --Execute execute_dynamic_vql(vql_string);
+                   
+       -- Return the output as row
+       RETURN ROW ( generated_vql) VALUES (vql_string);
+                
+        EXIT WHEN cursor_views%NOTFOUND;
+    END LOOP;
+    CLOSE cursor_views;
+END;
+
