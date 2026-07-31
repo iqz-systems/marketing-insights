@@ -1,5 +1,0 @@
-﻿CREATE OR REPLACE VIEW resort_performance_report FOLDER = '/3 - reports' AS SELECT iv_resort_performance.client_name AS client_name, iv_resort_performance.revenue AS revenue, iv_resort_performance.resort AS resort FROM iv_resort_performance;
-
-ALTER VIEW resort_performance_report
- LAYOUT (iv_resort_performance = [20, 20, 200, 200]);
-

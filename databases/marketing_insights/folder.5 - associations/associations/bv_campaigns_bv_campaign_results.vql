@@ -1,6 +1,0 @@
-﻿CREATE OR REPLACE ASSOCIATION "bv_Campaigns_bv_Campaign_Results" REFERENTIAL CONSTRAINT 
-FOLDER = '/5 - associations'
-    ENDPOINT "bv_Campaign_Results" bv_campaigns PRINCIPAL (0,1)
-    ENDPOINT "bv_Campaigns" bv_campaign_results (0,*)
-    ADD MAPPING campaign_id=campaign_id;
-

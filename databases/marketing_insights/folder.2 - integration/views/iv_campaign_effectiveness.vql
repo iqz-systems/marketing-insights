@@ -1,8 +1,0 @@
-﻿CREATE OR REPLACE VIEW iv_campaign_effectiveness FOLDER = '/2 - integration' (
-    campaign_name TAGS (campaigns)
- )
- AS SELECT bv_campaigns.campaign_name AS campaign_name, sum(bv_campaign_results.conversions) AS conversions, case WHEN (sum(bv_campaign_channels.actual_cost) = 0) THEN 0 ELSE (((sum(bv_campaign_results.conversions)*100.0)-sum(bv_campaign_channels.actual_cost))/sum(bv_campaign_channels.actual_cost)) END AS roi FROM (bv_campaigns AS bv_campaigns INNER JOIN bv_campaign_channels AS bv_campaign_channels ON bv_campaigns.campaign_id = bv_campaign_channels.campaign_id ) INNER JOIN bv_campaign_results AS bv_campaign_results ON bv_campaigns.campaign_id = bv_campaign_results.campaign_id  GROUP BY bv_campaigns.campaign_name;
-
-ALTER VIEW iv_campaign_effectiveness
- LAYOUT (bv_campaigns = [101, 86, 200, 200], bv_campaign_channels = [359, 15, 200, 200], bv_campaign_results = [541, 66, 200, 200]);
-

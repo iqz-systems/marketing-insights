@@ -1,8 +1,0 @@
-﻿CREATE OR REPLACE VIEW click_through_rate FOLDER = '/3 - reports' (
-    click_through_rate (description = 'Represents the proportion or percentage of clicks relative to impressions, indicating the effectiveness of an action or campaign in attracting engagement.') TAGS (audience_engagement)
- )
- AS SELECT iv_click_through_rate.ctr AS click_through_rate FROM iv_click_through_rate;
-
-ALTER VIEW click_through_rate
- LAYOUT (iv_click_through_rate = [523, 162, 200, 200]);
-

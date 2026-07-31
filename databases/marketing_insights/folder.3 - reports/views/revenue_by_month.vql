@@ -1,9 +1,0 @@
-﻿CREATE OR REPLACE VIEW revenue_by_month FOLDER = '/3 - reports' (
-    campaign_date (description = 'Represents the specific date when campaign-related metrics were logged or analyzed. It includes values like "2023-07-15", "2025-02-16", "2024-08-27", and "2024-02-05".') TAGS (campaign_date),
-    total_revenue (description = 'Captures the total revenue generated within a given timeframe, providing critical insight into financial performance. It includes values like "3330300.0", "7144900.0", "7962700.0", and "4957600.0".') TAGS (sales)
- )
- AS SELECT iv_revenue_by_month.date AS campaign_date, iv_revenue_by_month.revenue AS total_revenue FROM iv_revenue_by_month;
-
-ALTER VIEW revenue_by_month
- LAYOUT (iv_revenue_by_month = [410, 114, 200, 200]);
-

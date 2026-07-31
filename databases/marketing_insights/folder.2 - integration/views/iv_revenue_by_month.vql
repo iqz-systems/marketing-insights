@@ -1,8 +1,0 @@
-﻿CREATE OR REPLACE VIEW iv_revenue_by_month FOLDER = '/2 - integration' (
-    revenue TAGS (sales)
- )
- AS SELECT date AS date, (sum(conversions)*100.0) AS revenue FROM bv_campaign_results GROUP BY date;
-
-ALTER VIEW iv_revenue_by_month
- LAYOUT (bv_campaign_results = [460, 134, 200, 200]);
-

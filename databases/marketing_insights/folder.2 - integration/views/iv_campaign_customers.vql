@@ -1,8 +1,0 @@
-﻿CREATE OR REPLACE VIEW iv_campaign_customers FOLDER = '/2 - integration' (
-    campaign_id TAGS (campaigns)
- )
- AS SELECT DISTINCT bv_leads.campaign_id AS campaign_id FROM bv_leads WHERE status = 'Converted';
-
-ALTER VIEW iv_campaign_customers
- LAYOUT (bv_leads = [600, 360, 200, 200]);
-

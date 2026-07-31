@@ -1,8 +1,0 @@
-﻿CREATE OR REPLACE VIEW iv_total_impressions FOLDER = '/2 - integration' (
-    total_impressions (description = '')
- )
- AS SELECT sum(impressions) AS total_impressions FROM bv_campaign_results;
-
-ALTER VIEW iv_total_impressions
- LAYOUT (bv_campaign_results = [415, 140, 200, 200]);
-

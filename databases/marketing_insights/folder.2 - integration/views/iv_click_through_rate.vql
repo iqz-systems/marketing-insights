@@ -1,5 +1,0 @@
-﻿CREATE OR REPLACE VIEW iv_click_through_rate FOLDER = '/2 - integration' AS SELECT case WHEN (sum(impressions) = 0) THEN 0 ELSE ((sum(clicks)*1.0)/sum(impressions)) END AS ctr FROM bv_campaign_results;
-
-ALTER VIEW iv_click_through_rate
- LAYOUT (bv_campaign_results = [434, 125, 200, 200]);
-
